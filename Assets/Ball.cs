@@ -15,4 +15,15 @@ public class Ball : MonoBehaviour
     {
         
     }
+
+    //ボールがなにかにぶつかった時にだけ処理される
+    private void OnCollisionEnter(Collision collision)
+    {
+        //ぶつかった相手のタグがブロックなら。CompareTagcがタグが正しいか判断してる
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            Destroy(collision.gameObject);//物を壊す
+        }
+        
+    }
 }
