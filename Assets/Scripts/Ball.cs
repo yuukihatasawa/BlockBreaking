@@ -24,6 +24,9 @@ public class Ball : MonoBehaviour
         {
             Destroy(collision.gameObject);//物を壊す
         }
-        
+
     }
+
+
+
 }
