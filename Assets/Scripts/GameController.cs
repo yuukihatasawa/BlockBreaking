@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
         if (blocks.Length == 0)
         {
-            gameClearText.SetActive(true);//最初に無効にしていたチェックボックスに再びチェックをつけることができる。
+            gameClearText.SetActive(true);//最初に無効にしていたチェックボックスに再びチェックをつけることができる。true（SetActive）
         }
     }
 }
