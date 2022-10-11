@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    //ボールが生きているかどうかを管理する変数。
+    public bool isDead = false;
+
     // プログラムが起動した直後、一回処理
     void Start()
     {
@@ -23,6 +26,11 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             Destroy(collision.gameObject);//物を壊す
+        }
+        //GameObject.nameでWall_bottomだったら、ボールが死ぬ（true）。
+        if (collision.gameObject.name == "Wall_Bottom")
+        {
+            isDead = true;
         }
 
     }
