@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     {
         //ブロックを全て習得させる
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
+
         if (blocks.Length == 0)
         {
             //最初に無効にしていたチェックボックスに再びチェックをつけることができる。true（SetActive）
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
             ball.GetComponent<Rigidbody>().isKinematic = true;
             retryButton.SetActive(true);
         }
+
         //ボールのBallScriptの中のisDeadフラグがTrueだったとき、GameOverTextがアクティブに
         if (ball.GetComponent<Ball>().isDead == true)
         {
