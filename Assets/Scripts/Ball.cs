@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    //Rigidbodyを何度か使用するために、変数にする
+    Rigidbody rb;
+
     //ボールが生きているかどうかを管理する変数。
     public bool isDead = false;
 
     // プログラムが起動した直後、一回処理
     void Start()
     {
-        GetComponent<Rigidbody>().AddForce(new Vector3(100, -100, 0));//AddForse　力を加える処理
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(new Vector3(150, -150, 0));//AddForse　力を加える処理
     }
 
     // ゲーム中繰り返し処理
@@ -31,6 +35,14 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.name == "Wall_Bottom")
         {
             isDead = true;
+        }
+        //Barとぶつかったときの処理
+        if(collision.gameObject.name == "Bar")
+        {
+            //跳ね返す処理 ボールの座標　–　バーの座標でボールとバーの中心の座標を引く
+            Vector3 vec = transform.position - collision.transform.position;
+            rb.velocity = Vector3.zero;//一旦、ボールの移動量を０にしなければいけない
+            rb.AddForce(vec.normalized * 150);//normalizedは、大きさを１に統一
         }
 
     }
