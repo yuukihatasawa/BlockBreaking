@@ -9,12 +9,14 @@ public class Ball : MonoBehaviour
 
     //ボールが生きているかどうかを管理する変数。
     public bool isDead = false;
+    public float speed = 3.0f;      //速度
+    public float accelSpeed = 0.5f; //加速度
 
     // プログラムが起動した直後、一回処理
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(new Vector3(150, -150, 0));//AddForse　力を加える処理
+        rb.AddForce(new Vector3(1, -1, 0) * speed, ForceMode.VelocityChange);//AddForse　力を加える処理
     }
 
     // ゲーム中繰り返し処理
@@ -39,10 +41,10 @@ public class Ball : MonoBehaviour
         //Barとぶつかったときの処理
         if(collision.gameObject.name == "Bar")
         {
-            //跳ね返す処理 ボールの座標　–　バーの座標でボールとバーの中心の座標を引く
-            Vector3 vec = transform.position - collision.transform.position;
+            speed += accelSpeed;//加速度を足した値がspeedに保存される
+            Vector3 vec = transform.position - collision.transform.position;//跳ね返す処理 ボールの座標　–　バーの座標でボールとバーの中心の座標を引く
             rb.velocity = Vector3.zero;//一旦、ボールの移動量を０にしなければいけない
-            rb.AddForce(vec.normalized * 150);//normalizedは、大きさを１に統一
+            rb.AddForce(vec.normalized * speed, ForceMode.VelocityChange);//normalizedは、大きさを１に統一
         }
 
     }
