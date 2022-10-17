@@ -6,12 +6,11 @@ public class Ball : MonoBehaviour
 {
     //Rigidbodyを何度か使用するために、変数にする
     Rigidbody rb;
-
-   
     public bool isDead = false;     //ボールが生きているかどうかを管理する変数。
     public float speed = 3.0f;      //速度
     public float accelSpeed = 0.5f; //加速度
-    bool isStart = false;   //動き始めたかの管理
+    public ScoreManager scoreManager;
+    bool isStart = false;           //動き始めたかの管理
 
     // プログラムが起動した直後、一回処理
     void Start()
@@ -37,6 +36,7 @@ public class Ball : MonoBehaviour
         //ぶつかった相手のタグがブロックなら。CompareTagcがタグが正しいか判断してる
         if (collision.gameObject.CompareTag("Block"))
         {
+            scoreManager.AddScore();
             Destroy(collision.gameObject);//物を壊す
         }
         //GameObject.nameでWall_bottomだったら、ボールが死ぬ（true）。
@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour
 
     private void Reflect(Collision collision)
     {
-        
+        scoreManager.ResetCombo();
         Vector3 vec = transform.position - collision.transform.position;//跳ね返す処理 ボールの座標　–　バーの座標でボールとバーの中心の座標を引く
         rb.velocity = Vector3.zero;//一旦、ボールの移動量を０にしなければいけない
         rb.AddForce(vec.normalized * speed, ForceMode.VelocityChange);//normalizedは、大きさを１に統一
