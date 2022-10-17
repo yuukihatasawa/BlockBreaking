@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
     public float speed = 3.0f;      //速度
     public float accelSpeed = 0.5f; //加速度
     public ScoreManager scoreManager;
+    public GameObject explosionPrefab;
     bool isStart = false;           //動き始めたかの管理
 
     // プログラムが起動した直後、一回処理
@@ -38,6 +39,8 @@ public class Ball : MonoBehaviour
         {
             scoreManager.AddScore();
             Destroy(collision.gameObject);//物を壊す
+            GameObject explosion = Instantiate(explosionPrefab, collision.transform.position, Quaternion.identity);
+            explosion.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         }
         //GameObject.nameでWall_bottomだったら、ボールが死ぬ（true）。
         if (collision.gameObject.name == "Wall_Bottom")
