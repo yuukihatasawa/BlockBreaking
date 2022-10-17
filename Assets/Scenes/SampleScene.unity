@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: aa35292838b694ff9b6e3b390df9cd3a,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -1894,6 +1895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
+  speed: 3
+  accelSpeed: 0.5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3999,7 +4002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameClearText: {fileID: 1750158412}
   gameOverText: {fileID: 1281319074}
-  ball: {fileID: 930776288}
+  ballObject: {fileID: 930776288}
   retryButton: {fileID: 620879070}
 --- !u!4 &1950105112
 Transform:

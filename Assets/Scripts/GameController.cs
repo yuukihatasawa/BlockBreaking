@@ -8,13 +8,16 @@ public class GameController : MonoBehaviour
 {
     public GameObject gameClearText;//GameControllerにGameClearTextインスタンスを参照するため
     public GameObject gameOverText;//gameOverTextを受け取る変数
-    public GameObject ball;//ボールの情報
+    public GameObject ballObject;//ボールの情報
     public GameObject retryButton;
+    private Rigidbody ballRigidbody;
+    private Ball ball;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ballRigidbody = ballObject.GetComponent<Rigidbody>();
+        ball = ballObject.GetComponent<Ball>();
     }
 
     // Update is called once per frame
@@ -27,17 +30,14 @@ public class GameController : MonoBehaviour
         {
             //最初に無効にしていたチェックボックスに再びチェックをつけることができる。true（SetActive）
             gameClearText.SetActive(true);
-            ball.GetComponent<Rigidbody>().isKinematic = true;
+            ballRigidbody.isKinematic = true;
             retryButton.SetActive(true);
         }
 
         //ボールのBallScriptの中のisDeadフラグがTrueだったとき、GameOverTextがアクティブに
-        if (ball.GetComponent<Ball>().isDead == true)
+        if (ball.isDead == true)
         {
-            gameOverText.SetActive(true);
-            //ゲームオーバーになったとき、ボールの動きを止める処理　isKinematic→物理演算の影響
-            ball.GetComponent<Rigidbody>().isKinematic = true;
-            retryButton.SetActive(true);
+            GameOver();
         }
     }
 
@@ -45,5 +45,13 @@ public class GameController : MonoBehaviour
     {
         //シーンを読み込むための関数。どのシーンを呼び込むかは（）の中に
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void GameOver()
+    {
+        gameOverText.SetActive(true);
+        //ゲームオーバーになったとき、ボールの動きを止める処理　isKinematic→物理演算の影響
+        ballRigidbody.isKinematic = true;
+        retryButton.SetActive(true);
     }
 }
