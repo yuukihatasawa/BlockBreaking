@@ -65,4 +65,9 @@ public class Ball : MonoBehaviour
 
     }
 
+    private void CreateItem(Collision collsion)
+    {
+
+    }
+
 }
