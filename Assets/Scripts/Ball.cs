@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     public float accelSpeed = 0.5f; //加速度
     public ScoreManager scoreManager;
     public GameObject explosionPrefab;
+    public Item item;
     bool isStart = false;           //動き始めたかの管理
 
     // プログラムが起動した直後、一回処理
@@ -41,6 +42,11 @@ public class Ball : MonoBehaviour
             Destroy(collision.gameObject);//物を壊す
             GameObject explosion = Instantiate(explosionPrefab, collision.transform.position, Quaternion.identity);
             explosion.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+
+            if (Random.Range(0,5) == 0)
+            {
+                CreateItem(collision);
+            }
         }
         //GameObject.nameでWall_bottomだったら、ボールが死ぬ（true）。
         if (collision.gameObject.name == "Wall_Bottom")
@@ -67,7 +73,24 @@ public class Ball : MonoBehaviour
 
     private void CreateItem(Collision collsion)
     {
+        var item = Resources.Load<GameObject>("Prefab/item01");
+        GameObject obj = Instantiate(item, gameObject.transform.position, item.transform.rotation) as GameObject;
 
-    }
+        switch (Random.Range(0, 2))
+        {
+            case 0:
+                obj.GetComponent<Renderer>().material.color = Color.red;
+                obj.GetComponent<Item>().itemType = Item.ItemType.ExtendBarLength;
+                break;
+
+            case 1:
+                obj.GetComponent<Renderer>().material.color = Color.black;
+                obj.GetComponent<Item>().itemType = Item.ItemType.ShrinkBarLength;
+                break;
+
+            default:
+                break;
+        }
+     }
 
 }

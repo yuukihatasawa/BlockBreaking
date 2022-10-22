@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Bar : MonoBehaviour
 {
+    private float playerLength;
+    
     float posY;
+
     void Start()
     {
         posY = transform.position.y;
+        playerLength = transform.localScale.x;
 
     }
 
@@ -19,6 +23,42 @@ public class Bar : MonoBehaviour
         targetPos.x = Mathf.Clamp(targetPos.x, -1.6f, 1.6f);//Mathf.Clampで数値の範囲を制限（最小と最大）
         targetPos.y = posY;
         transform.position = targetPos;
+
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Item")
+        {
+            Destroy(collider.gameObject);
+            if(collider.GetComponent<Item>().itemType == Item.ItemType.ExtendBarLength)
+            {
+            }
+        }
+    }
+
+    void ExtendBarLength()
+    {
+        playerLength += 0.5f;
+        if (playerLength > 2.5f)
+        {
+            playerLength = 2.5f;
+        }
+        var temp = transform.localScale;
+        temp.x = playerLength;
+        gameObject.transform.localScale = temp;
+    }
+
+    void ShrinkBarLength()
+    {
+        playerLength -= 0.5f;
+        if (playerLength < 1.0f)
+        {
+            playerLength = 1.0f;
+        }
+        var temp = transform.localScale;
+        temp.x = playerLength;
+        gameObject.transform.localScale = temp;
 
     }
 }
