@@ -7,11 +7,18 @@ public class Ball : MonoBehaviour
     //Rigidbodyを何度か使用するために、変数にする
     Rigidbody rb;
     public bool isDead = false;     //ボールが生きているかどうかを管理する変数。
-    public float speed = 3.0f;      //速度
-    public float accelSpeed = 0.5f; //加速度
-    public ScoreManager scoreManager;
-    public GameObject explosionPrefab;
-    public Item item;
+    [SerializeField]
+    private float speed = 3.0f;      //速度
+    [SerializeField]
+    private float accelSpeed = 0.5f; //加速度
+    [SerializeField]
+    private ScoreManager scoreManager;
+    [SerializeField]
+    private GameObject explosionPrefab;
+    [SerializeField]
+    private GameObject extendBarItem;
+    [SerializeField]
+    private GameObject shrinkBarItem;
     bool isStart = false;           //動き始めたかの管理
 
     // プログラムが起動した直後、一回処理
@@ -43,9 +50,10 @@ public class Ball : MonoBehaviour
             GameObject explosion = Instantiate(explosionPrefab, collision.transform.position, Quaternion.identity);
             explosion.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 
+            //1/5の確率でアイテム出現
             if (Random.Range(0,5) == 0)
             {
-                CreateItem(collision);
+                CreateItem();
             }
         }
         //GameObject.nameでWall_bottomだったら、ボールが死ぬ（true）。
@@ -71,21 +79,18 @@ public class Ball : MonoBehaviour
 
     }
 
-    private void CreateItem(Collision collsion)
+    private void CreateItem()
     {
-        var item = Resources.Load<GameObject>("Prefab/item01");
-        GameObject obj = Instantiate(item, gameObject.transform.position, item.transform.rotation) as GameObject;
 
+        //1/2の確率でアイテムの種類を決める
         switch (Random.Range(0, 2))
         {
             case 0:
-                obj.GetComponent<Renderer>().material.color = Color.red;
-                obj.GetComponent<Item>().itemType = Item.ItemType.ExtendBarLength;
+                Instantiate(extendBarItem, gameObject.transform.position, Quaternion.identity);
                 break;
 
             case 1:
-                obj.GetComponent<Renderer>().material.color = Color.black;
-                obj.GetComponent<Item>().itemType = Item.ItemType.ShrinkBarLength;
+                Instantiate(shrinkBarItem, gameObject.transform.position, Quaternion.identity);
                 break;
 
             default:

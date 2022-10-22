@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    private Bar bar;
+
+
+
     public enum ItemType
     {
         ExtendBarLength,
@@ -18,6 +22,7 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bar = GameObject.Find("Bar").GetComponent<Bar>();
         rb = GetComponent<Rigidbody>();
         vector = new Vector3(0, itemSpeed, 0);
     }
@@ -27,4 +32,25 @@ public class Item : MonoBehaviour
     {
         rb.velocity = vector;
     }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+
+        if (collider.name == "Bar")
+        {
+            
+            if (itemType == Item.ItemType.ExtendBarLength)
+            {
+                bar.ExtendBarLength();
+            }
+            else if (itemType == Item.ItemType.ShrinkBarLength)
+            {
+                bar.ShrinkBarLength();
+            }
+            Destroy(this.gameObject);
+
+
+        }
+    }
+
 }

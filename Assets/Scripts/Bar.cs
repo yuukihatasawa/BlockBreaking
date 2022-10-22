@@ -26,18 +26,8 @@ public class Bar : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag == "Item")
-        {
-            Destroy(collider.gameObject);
-            if(collider.GetComponent<Item>().itemType == Item.ItemType.ExtendBarLength)
-            {
-            }
-        }
-    }
 
-    void ExtendBarLength()
+    public void ExtendBarLength()
     {
         playerLength += 0.5f;
         if (playerLength > 2.5f)
@@ -49,7 +39,7 @@ public class Bar : MonoBehaviour
         gameObject.transform.localScale = temp;
     }
 
-    void ShrinkBarLength()
+    public void ShrinkBarLength()
     {
         playerLength -= 0.5f;
         if (playerLength < 1.0f)
