@@ -19,6 +19,9 @@ public class Ball : MonoBehaviour
     private GameObject extendBarItem;
     [SerializeField]
     private GameObject shrinkBarItem;
+    [SerializeField]
+    private GameObject createBallItem;
+
     bool isStart = false;           //動き始めたかの管理
 
     // プログラムが起動した直後、一回処理
@@ -83,14 +86,19 @@ public class Ball : MonoBehaviour
     {
 
         //1/2の確率でアイテムの種類を決める
-        switch (Random.Range(0, 2))
+        switch (Random.Range(0, 3))
         {
             case 0:
                 Instantiate(extendBarItem, gameObject.transform.position, Quaternion.identity);
+
                 break;
 
             case 1:
                 Instantiate(shrinkBarItem, gameObject.transform.position, Quaternion.identity);
+                break;
+
+            case 2:
+                Instantiate(createBallItem,gameObject.transform.position,Quaternion.identity);
                 break;
 
             default:

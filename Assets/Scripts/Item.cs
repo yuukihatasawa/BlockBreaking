@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     {
         ExtendBarLength,
         ShrinkBarLength,
+        CreateBall,
     }
     public ItemType itemType;
 
@@ -47,9 +48,19 @@ public class Item : MonoBehaviour
             {
                 bar.ShrinkBarLength();
             }
+            else if (itemType == Item.ItemType.CreateBall)
+            {
+                bar.CreateBall();
+            }
+
             Destroy(this.gameObject);
 
 
+        }
+
+        if(collider.name == "Wall_Bottom")
+        {
+            Destroy(this.gameObject);
         }
     }
 

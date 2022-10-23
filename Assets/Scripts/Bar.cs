@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bar : MonoBehaviour
 {
     private float playerLength;
-    
+    public GameObject createBall;
+
     float posY;
 
     void Start()
@@ -30,9 +31,9 @@ public class Bar : MonoBehaviour
     public void ExtendBarLength()
     {
         playerLength += 0.5f;
-        if (playerLength > 2.5f)
+        if (playerLength > 2.0f)
         {
-            playerLength = 2.5f;
+            playerLength = 2.0f;
         }
         var temp = transform.localScale;
         temp.x = playerLength;
@@ -50,5 +51,10 @@ public class Bar : MonoBehaviour
         temp.x = playerLength;
         gameObject.transform.localScale = temp;
 
+    }
+
+    public void CreateBall()
+    {
+        createBall.SetActive(true);
     }
 }
